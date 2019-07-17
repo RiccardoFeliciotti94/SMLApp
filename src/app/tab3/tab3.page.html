@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Three
+      Asta
     </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content></ion-content>
+ 
+<ion-content padding>
+  <ion-button expand="block" color="success" (click)="joinChat()" [disabled]="isAstaDisp() ? true : false">Partecipa all'asta</ion-button>
+</ion-content>

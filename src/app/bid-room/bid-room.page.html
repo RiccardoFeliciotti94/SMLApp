@@ -1,0 +1,96 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title text-center>
+        Asta
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+   
+  <ion-content>
+      <ion-toolbar>
+        <ion-item >
+          <ion-col></ion-col>
+          <ion-col>
+            <div align="center">
+              <img src="{{picture}}" alt="">
+            </div>
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-item>
+          <ion-title text-center>
+              <span>{{player}}</span>
+          </ion-title>
+        </ion-toolbar>
+      <ion-row>
+        <ion-col>
+            <div align="right" text-wrap>
+              <ion-item>
+                <div style="font-size:20px;" align="center">
+                  <span>{{nickname}}</span><br>
+              </div>
+              </ion-item>
+                <div align="center">
+                  <span>Offerta</span><br>
+                </div>
+                <div align="center">
+                  <span style="font-size:20px;">{{score}}</span>
+                </div>
+            </div>
+        </ion-col>
+        <ion-col></ion-col>
+        <ion-col>
+            <div align="right" text-wrap>
+              <ion-item>
+                <div style="font-size:20px;" align="right">
+                  <span>{{nickname2}}</span><br>
+                </div>
+              </ion-item>
+                <div align="center">
+                  <span>Offerta</span><br>
+                </div>
+                <div align="center">
+                  <span style="font-size:20px;">{{score2}}</span>
+                </div>
+            </div>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col align-self: center>
+            <div align="center">
+                  <span>Tempo rimanente</span><br>
+                </div>
+                <div align="center">
+                  <span style="font-size:20px;">{{timer}}</span>
+                </div>
+        </ion-col>
+       
+      </ion-row>
+  </ion-content>
+  
+  <ion-footer>
+    <ion-toolbar>
+        <ion-row>
+            <div>
+                <span>{{'Soldi: ' + money}}</span>
+            </div>
+          </ion-row>
+      <ion-row class="message_row">
+        <ion-col>
+          <ion-button color="primary" (click)="sendMessage1()" [disabled]="isLess1() ? true : false" expand="block">
+            +1
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="warning" (click)="sendMessage2()"[disabled]="isLess2() ? true : false" expand="block">
+              +2
+          </ion-button>
+        </ion-col>
+        <ion-col>
+          <ion-button color="tertiary" (click)="sendMessage3()"[disabled]="isLess3() ? true : false" expand="block">
+            +3
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-footer>
+  

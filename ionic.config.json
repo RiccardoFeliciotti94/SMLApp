@@ -1,5 +1,7 @@
 {
   "name": "SMLApp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

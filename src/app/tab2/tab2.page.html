@@ -1,9 +1,49 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab Two
+      Classifiche
     </ion-title>
+    <ion-buttons slot="end">
+        <ion-button ion-button icon-end (click)="presentAlertRadio()">
+          <ion-icon name="arrow-dropdown"></ion-icon>
+        </ion-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-content></ion-content>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-col>
+        <div align="center" style="font-weight:bold">
+          {{'Classifica '+option}}
+        </div>
+      </ion-col>
+    </ion-item>
+  </ion-list>
+  <ion-row>
+    <ion-col size="1"></ion-col>
+    <ion-col size="5">
+      {{option=="Giocatori" ? 'Nickname' : 'Squadra'}}
+    </ion-col>
+    <ion-col>
+      {{option=="Giocatori" ? 'Goal' : 'Punti'}}
+    </ion-col>
+    <ion-col>
+      {{option=="Giocatori" ? 'Assist' : ''}}
+    </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let row of arrayRank">
+    <ion-col size="1">
+      {{row.Rank}}
+    </ion-col>
+    <ion-col size="5">
+      {{row.Nickname || row.Nome}}
+    </ion-col>
+    <ion-col>
+      {{row.totGoal || row.Punti}}
+    </ion-col>
+    <ion-col>
+      {{row.totAssist}}
+    </ion-col>
+  </ion-row>
+</ion-content>

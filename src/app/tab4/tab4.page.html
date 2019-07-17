@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Partite</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let row of matchesArray" (click)="onClickMatch(row.Id)">
+        <ion-col>
+          <div align="center">
+            <p style="font-weight: bold;">{{row.NomeS1 + "  "}}</p><p>{{row.PuntiS1 + " - " + row.PuntiS2}}</p><p style="font-weight: bold;">{{"  " + row.NomeS2}}</p>
+          </div>
+        </ion-col>
+        <ion-col size="1">
+          <div align="right">
+            <ion-icon name="arrow-forward"></ion-icon>
+          </div>
+        </ion-col>
+    </ion-item>
+  </ion-list>
+</ion-content>
