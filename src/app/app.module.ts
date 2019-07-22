@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { HttpModule } from '@angular/http';
 import { DataServiceService } from './data-service.service';
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: 'http://riccardohosts.ddns.net:30', options: {} };
 
 @NgModule({
   declarations: [AppComponent],
