@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataServiceService } from '../data-service.service';
 import {Http, Headers, RequestOptions}  from '@angular/http';
-import { map } from 'rxjs/operators';import { AlertController } from '@ionic/angular';
+import { map } from 'rxjs/operators';import { AlertController, LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
@@ -13,36 +13,41 @@ export class Tab2Page {
   alertInput = ["Giocatori"];
   arrayRank = [];
 
-  constructor(private http: Http, public data: DataServiceService, public alertController: AlertController) {
+  constructor(private loadingCtrl: LoadingController,private http: Http, public data: DataServiceService, public alertController: AlertController) {
     this.buildRankOptions();
     this.buildRankTable();
   }
 
-  buildRankTable(){
-    var headers = new Headers();
-    headers.append("Accept", 'application/json');
-    headers.append('Content-Type', 'application/json' );
+  async buildRankTable(){
+    const loading = await this.loadingCtrl.create({});
 
-    let options = new RequestOptions({ headers: headers });
+    loading.present().then(()=>{
+      var headers = new Headers();
+      headers.append("Accept", 'application/json');
+      headers.append('Content-Type', 'application/json' );
+
+      let options = new RequestOptions({ headers: headers });
     
-    if(this.option == "Giocatori"){
-      let d = {
-        username: this.data.username
-      };
-      this.http.post('http://riccardohosts.ddns.net:8080/getPlayerRanks.php',d,options).pipe(map(res => res.json()))
-        .subscribe(res => {
-          this.arrayRank = res;
-      });
-    }
-    else{
-      let d = {
-        username: this.option
-      };
-      this.http.post('http://riccardohosts.ddns.net:8080/getRankTeams.php',d,options).pipe(map(res => res.json()))
-        .subscribe(res => {
-          this.arrayRank = res;
-      });
-    }
+      if(this.option == "Giocatori"){
+        let d = {
+          username: this.data.username
+        };
+        this.http.post('http://riccardohosts.ddns.net:8080/getPlayerRanks.php',d,options).pipe(map(res => res.json()))
+          .subscribe(res => {
+            this.arrayRank = res;
+        });
+      }
+      else{
+        let d = {
+          username: this.option
+        };
+        this.http.post('http://riccardohosts.ddns.net:8080/getRankTeams.php',d,options).pipe(map(res => res.json()))
+          .subscribe(res => {
+            this.arrayRank = res;
+        });
+      }
+    });
+    loading.dismiss();
   }
 
   async presentAlertRadio() {
