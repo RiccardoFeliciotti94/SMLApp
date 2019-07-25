@@ -21,6 +21,7 @@ export class BidRoomPage implements OnInit {
   timer = 0;
   dict = {}
   picture = "http://riccardohosts.ddns.net:8080/imgs/"
+  giocRim : any;
 
   constructor(private socket: Socket, private route: ActivatedRoute, private router: Router, public alertController: AlertController) {
     
@@ -70,7 +71,13 @@ export class BidRoomPage implements OnInit {
     
     this.getPlayer().subscribe(data =>{
       this.player = data['player'];
-      this.picture += this.player + ".jpg";
+      this.picture = "http://riccardohosts.ddns.net:8080/imgs/";
+      this.picture += this.player + ".png";
+      this.giocRim = "";
+      var a = data['players'];
+      a.forEach(element => {
+       if(element != this.player)this.giocRim += element+"\n"; 
+      });
     });
 
     this.getUsers().subscribe(data => {
