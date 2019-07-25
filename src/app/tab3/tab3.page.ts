@@ -54,6 +54,7 @@ export class Tab3Page {
     this.socket.connect();
     this.socket.emit('set-nickname', this.data.username);
     this.router.navigate(['bid-room', { nickname: this.data.username }]);
+    this.bool = true;
   }
 
   isAstaDisp(){
