@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import {Http, Headers, RequestOptions}  from '@angular/http';
 import { AlertController } from '@ionic/angular';
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 import { map } from 'rxjs/operators';
 
@@ -17,6 +18,7 @@ export class LoginPage implements OnInit {
 
   username = localStorage.Nickname;
   password = localStorage.Password;
+  versione : any;
   
   private data:string;
 
@@ -24,8 +26,13 @@ export class LoginPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     public router: Router,
     private http: Http,
-    public alertController: AlertController
-  ) {}
+    public alertController: AlertController,
+    private appVersion: AppVersion
+  ) {
+    this.appVersion.getVersionNumber().then(version => {
+      this.versione = version;
+    });
+  }
   
   ngOnInit() {
   }
