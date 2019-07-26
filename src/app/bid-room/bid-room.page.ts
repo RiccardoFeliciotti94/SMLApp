@@ -1,9 +1,11 @@
 import { Component, OnInit  } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
+import { Socket, SocketIoConfig } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
 import { ActivatedRoute  } from '@angular/router';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { WrappedSocket } from 'ngx-socket-io/src/socket-io.service';
+import { DataServiceService } from '../data-service.service';
 
 @Component({
   selector: 'app-bid-room',
@@ -23,8 +25,8 @@ export class BidRoomPage implements OnInit {
   picture = "http://riccardohosts.ddns.net:8080/imgs/"
   giocRim : any;
 
-  constructor(private socket: Socket, private route: ActivatedRoute, private router: Router, public alertController: AlertController) {
-    
+  constructor(private data: DataServiceService, private socket: Socket, private route: ActivatedRoute, private router: Router, public alertController: AlertController) {
+    this.socket = this.data.socket;
     this.nickname = this.route.snapshot.data['user'];
     this.getMessages().subscribe(message => {
       if(message['from'] != this.nickname){

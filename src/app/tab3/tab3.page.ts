@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { Socket } from 'ngx-socket-io';
+import { Socket, SocketIoConfig } from 'ngx-socket-io';
 import { Router } from '@angular/router';
 import {Http, Headers, RequestOptions}  from '@angular/http';
 import { DataServiceService } from '../data-service.service';
 import { map } from 'rxjs/operators';
+import { WrappedSocket } from 'ngx-socket-io/src/socket-io.service';
 
 @Component({
   selector: 'app-tab3',
@@ -17,7 +18,6 @@ export class Tab3Page {
 
   constructor(private http: Http,private router: Router, private socket: Socket, private data: DataServiceService) {
     var headers = new Headers();
-
     headers.append("Accept", 'application/json');
     headers.append('Content-Type', 'application/json' );
 
@@ -45,7 +45,19 @@ export class Tab3Page {
       this.http.post('http://riccardohosts.ddns.net:8080/getSquIdUsrs.php',data,options).pipe(map(res => res.json()))
       .subscribe(res => {
         res.forEach(element => {
-          if(this.data.username == element.Nickname) this.bool = false
+          if(this.data.username == element.Nickname) {
+            this.bool = false;
+            if(element.Room==0){
+              const config : SocketIoConfig = {url: 'http://riccardohosts.ddns.net:30', options: {}};
+              this.socket = new WrappedSocket(config);
+              this.data.socket = this.socket;
+            }
+            if(element.Room==1){
+              const config : SocketIoConfig = {url: 'http://riccardohosts.ddns.net:31', options: {}};
+              this.socket = new WrappedSocket(config);
+              this.data.socket = this.socket;
+            }
+          }
         });
       });
   }

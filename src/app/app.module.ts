@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, Data } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -12,7 +12,8 @@ import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { HttpModule } from '@angular/http';
 import { DataServiceService } from './data-service.service';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-const config: SocketIoConfig = { url: 'http://riccardohosts.ddns.net:30', options: {} };
+
+const config: SocketIoConfig = { url: '', options: {} };
 
 @NgModule({
   declarations: [AppComponent],

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class DataServiceService {
 
   public username:string = "";
+  public socket : any;
 
   constructor() { }
 }
