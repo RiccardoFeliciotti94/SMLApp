@@ -57,6 +57,21 @@ export class Tab3Page {
               this.socket = new WrappedSocket(config);
               this.data.socket = this.socket;
             }
+            if(element.Room==2){
+              const config : SocketIoConfig = {url: 'http://riccardohosts.ddns.net:32', options: {}};
+              this.socket = new WrappedSocket(config);
+              this.data.socket = this.socket;
+            }
+            if(element.Room==3){
+              const config : SocketIoConfig = {url: 'http://riccardohosts.ddns.net:33', options: {}};
+              this.socket = new WrappedSocket(config);
+              this.data.socket = this.socket;
+            }
+            if(element.Room==4){
+              const config : SocketIoConfig = {url: 'http://riccardohosts.ddns.net:34', options: {}};
+              this.socket = new WrappedSocket(config);
+              this.data.socket = this.socket;
+            }
           }
         });
       });

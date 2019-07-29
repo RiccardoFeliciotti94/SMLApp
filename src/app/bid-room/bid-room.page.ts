@@ -24,13 +24,14 @@ export class BidRoomPage implements OnInit {
   dict = {}
   picture = "http://riccardohosts.ddns.net:8080/imgs/"
   giocRim : any;
+  tempMoney = 0;
 
   constructor(private data: DataServiceService, private socket: Socket, private route: ActivatedRoute, private router: Router, public alertController: AlertController) {
     this.socket = this.data.socket;
     this.nickname = this.route.snapshot.data['user'];
     this.getMessages().subscribe(message => {
       if(message['from'] != this.nickname){
-        this.score2 += message['text'];
+        this.score2 = message['text'];
       }
     });
 
@@ -60,11 +61,12 @@ export class BidRoomPage implements OnInit {
     });
 
     this.getBidders().subscribe(data => {
-      if(this.index == 0){
+      console.log(this.data.username+" "+this.index);
+      if(this.index == 1){
         this.nickname = data['usr'];
         this.nickname2 = data['usr2'];
       }
-      else{
+      if(this.index == 0){
         this.nickname = data['usr2'];
         this.nickname2 = data['usr'];
       }
@@ -87,9 +89,11 @@ export class BidRoomPage implements OnInit {
       if (data['event'] === 'left') {
         this.showToast('User left: ' + user);
         this.router.navigate(['blank']);
-      } else { 
-        this.showToast('User joined: ' + user);
-        this.index = data['index'];
+      } else {
+        if(this.data.username == user){
+          this.showToast('User joined: ' + user);
+          this.index = data['index'];
+        }
       }
     });
     
@@ -112,20 +116,54 @@ export class BidRoomPage implements OnInit {
 
     await alert.present();
   }
+  highBid(){
+    if(this.score > this.score2){
+      return this.score;
+    }
+    if(this.score == this.score2){
+      return this.score;
+    }
+    if(this.score2 > this.score){
+      return this.score2;
+    }
+  }
+  highBidBool(){
+    if(this.score > this.score2){
+      return true;
+    }
+    if(this.score == this.score2){
+      return true;
+    }
+    if(this.score2 > this.score){
+      return false;
+    }
+  }
   sendMessage1() {
-    this.socket.emit('add-message', { text: 1 });
-    this.money -= 1;
-    this.score += 1;
+    var s = this.highBid();
+    this.socket.emit('add-message', { text: s+1 });
+    if(this.highBidBool()) this.money -= 1;
+    else{
+      this.money -= Math.abs(this.score-this.score2) + 1;
+    }
+    this.score = s + 1;
   }
   sendMessage2() {
-    this.socket.emit('add-message', { text: 2 });
-    this.money -= 2;
-    this.score += 2;
+    var s = this.highBid();
+    this.socket.emit('add-message', { text: s+2 });
+    if(this.highBidBool()) this.money -= 2;
+    else{
+      this.money -= Math.abs(this.score-this.score2) + 2;
+    }
+    this.score = s + 2;
   }
   sendMessage3() {
-    this.socket.emit('add-message', { text: 3 });
-    this.money= this.money-3;
-    this.score += 3;
+    var s = this.highBid();
+    this.socket.emit('add-message', { text: s+3 });
+    if(this.highBidBool()) this.money -= 3;
+    else{
+      this.money -= Math.abs(this.score-this.score2) + 3;
+    }    
+    this.score = s + 3;
   }
  
   getMessages() {
